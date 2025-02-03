@@ -10,3 +10,9 @@
 
 - 👉 Chapters 1-10 introduce TypeScript fundamentals.
 - 👉 Chapters 12-17 cover Typescript with React.
+
+## RUN project
+
+    ```sh
+        tsc -w
+    ```

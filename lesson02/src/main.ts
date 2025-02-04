@@ -1,18 +1,23 @@
-let myName: string = 'Dave'
-let meaningOfLife: number;
-let isLoading: boolean;
-let album: any;
+let nam: string | number;
+let num: number;
+let bol: boolean;
+let unkn: unknown;
 
-myName = 'John'
-meaningOfLife = 42
-isLoading = true
-album = 5150
+nam = "";
+num = 899;
+bol = true;
+unkn = 345;
 
 const sum = (a: number, b: string) => {
-    return a + b
-}
+  return a + b;
+};
 
-let postId: string | number
-let isActive: number | boolean
+const rsult = sum(2, "3");
 
-let re: RegExp = /\w+/g
+let postId: string | number;
+let isActive: number | boolean;
+
+let re: RegExp = /\w+/g;
+
+console.log(re);
+console.log(rsult);

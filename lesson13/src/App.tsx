@@ -1,38 +1,56 @@
-import { useState, useEffect, useCallback, useMemo, useRef, MouseEvent, KeyboardEvent } from 'react' 
+import {
+  useState,
+  useEffect,
+  useCallback,
+  useMemo,
+  useRef,
+  MouseEvent,
+  KeyboardEvent,
+} from "react";
 
 interface User {
-  id: number,
-  username: string,
+  id: number;
+  username: string;
 }
 
-type fibFunc = (n: number) => number 
+type fibFunc = (n: number, memo?: Record<number, number>) => number;
 
-const fib: fibFunc = (n) => {
-  if (n < 2) return n 
-  return fib(n - 1) + fib(n - 2) 
-}
+const fib: fibFunc = (n, memo = {}) => {
+  if (n < 2) return n;
+  if (memo[n] !== undefined) return memo[n];
 
-const myNum: number = 37 
+  memo[n] = fib(n - 1, memo) + fib(n - 2, memo);
+  return memo[n];
+};
+
+const myNum = 60;
 
 function App() {
-  const [count, setCount] = useState<number>(0)
-  const [users, setUsers] = useState<User[] | null>(null)
-
-  const inputRef = useRef<HTMLInputElement>(null)
-
-  console.log(inputRef?.current) 
-  console.log(inputRef?.current?.value)
+  const [count, setCount] = useState<number>(0);
+  const [users, setUsers] = useState<User[] | null>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    console.log('mounting')
-    console.log('Users: ', users)
+    console.log("mounting");
+    console.log("Users: ", users);
 
-    return () => console.log('unmounting')
-  }, [users])
+    return () => console.log("unmounting");
+  }, [users]);
 
-  const addTwo = useCallback((e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLButtonElement>): void  => setCount(prev => prev + 2),[])
+  useEffect(() => {
+    if (inputRef.current) {
+      console.log("Input value: ", inputRef.current.value);
+    }
+  }, []);
 
-  const result = useMemo<number>(() => fib(myNum),[myNum])
+  const addTwo = useCallback(
+    (
+      e: MouseEvent<HTMLButtonElement> | KeyboardEvent<HTMLButtonElement>
+    ): void => setCount((prev) => prev + 2),
+    []
+  );
+
+  const result = useMemo(() => fib(myNum), []);
 
   return (
     <div className="App">
@@ -41,7 +59,7 @@ function App() {
       <h2>{result}</h2>
       <input ref={inputRef} type="text" />
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
